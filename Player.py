@@ -245,25 +245,10 @@ class Rod ():
             for item in self.next:
                 item.UpdateRodCalibrate (updates)
         
-            
-    def WriteBVH ( self, f, tab_level):
-        tabs = tab_level*"\t"
-        f.write (tabs + "JOINT " + self.name + "\n")
-        f.write (tabs + "{\n")
-        f.write ( tabs + "\tOFFSET {} {} {}\n".format(self.offset[0], self.offset[1], self.offset[2]) )
-        f.write ( tabs + "\tCHANNELS 3 Zrotation Yrotation Xrotation\n")
-        if self.next == [] :
-            f.write ( tabs + "\tEnd Site\n")
-            f.write ( tabs + "\t{\n")
-            f.write ( tabs + "\t\tOFFSET 0.0 0.0 0.0\n")
-            f.write ( tabs + "\t}\n")
-        else:
-            for item in self.next:
-                item.WriteBVH (f, tab_level + 1)
-        f.write (tabs + "}\n")
-#
+
 #
 #   Function to return a rotation matrix for the input angles
+#
 def RotationMat ( rotate_angles ):
     r_x = m.radians( rotate_angles[0] )
     r_y = m.radians( rotate_angles[1] )
