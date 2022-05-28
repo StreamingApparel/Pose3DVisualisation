@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Class and methods for describing a body as an assembly of rigid rods joined
+Class and methods for describing a body as connection of rigid rods joined
 together at joints
 
 

@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
 """
+Software that enables a user to load a time series pose data file (.sat) and
+replay the data in the form of a 3D pose, data graphs and tables. This file 
+containsclasses to create a user interface using pyQt5 and control the 
+main event loop for the program.
+
 Created on Fri Jan 19 13:42:49 2018
 
-@author: gbr00013
+@author: Paul Gough
 """
 import sys
 import time

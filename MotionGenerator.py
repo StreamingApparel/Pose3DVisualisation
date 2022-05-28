@@ -35,7 +35,7 @@ class Motion ():
         fp.write ("SA_EUL_ANG,0.0,sensor,6,angle_Z,-90.0 ,angle_X,0.0,angle_Y,0.0\n")
 
         steps = int(period/self.t_step)
-        for _ in range (0, 2):
+        for _ in range (0, 4):
             for i in range (0, steps+1):
                 frac = i/steps
                 tim = frac * period
