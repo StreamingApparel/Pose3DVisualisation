@@ -23,3 +23,6 @@ pip install -r /path/to/requirements.txt
 ```
 python QT_SA_Analyzer.py
 ```
+   * Two panels should appear and you are ready to go 
+ 
+![image](https://user-images.githubusercontent.com/65810138/170887594-194f1767-e5d7-438f-93d4-9c2ff2d438af.png)
