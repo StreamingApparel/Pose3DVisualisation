@@ -81,7 +81,7 @@ class Track ():
         self.calibrate   = None   # Used to capture calibration data relevant to sequence
         self.player      = None
         self.sensor_dict = {}
-        self.annotate    = []     # Names for components of a track e.g. bowling
+        self.annotate    = []     # Names for components of a track e.g. bowling not useed yet
         
     def SetTimeLen (self):
         """ Determine how long (in sceonds) is the track time and reset sequence time

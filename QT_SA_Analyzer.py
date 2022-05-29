@@ -53,6 +53,7 @@ class MainWindow (QMainWindow):
         self.ip_port      = 8080
         self.conn_list    = []  # List of names of connected items
         
+    
         # Set up player for test purposes
         self.curplayer = pl.Player( "Marvin", "standard", 1.6 )
         self.sensor_dict = {3:"RightLowerarm", 2:"RightUpperarm", 5:"Spine", 
@@ -94,7 +95,7 @@ class MainWindow (QMainWindow):
         
         # Play and record functions
 
-        self.widget_recplay = RecordPlay(self)
+        self.widget_recplay = RecordPlay(self, self.new_table, self.new_plot)
         self.mdi_recplay=QMdiSubWindow()
         self.mdi_recplay.setWidget(self.widget_recplay.widget)
         self.mdiArea.addSubWindow(self.mdi_recplay)
@@ -165,7 +166,7 @@ class MainWindow (QMainWindow):
         print ("New Player...")
         
     def load_tracks_trigger (self):
-        filename, _ = QFileDialog.getOpenFileName(self,"Load tracks", "../..","Track Files (*.sat)")
+        filename, _ = QFileDialog.getOpenFileName(self,"Load tracks", "..","Track Files (*.sat)")
         
         if not filename:
             return
@@ -454,10 +455,12 @@ class GarmentStatus(QWidget):
 # Window that contains record and playback functions
 #-----------------------------------------------------------------------------
 class RecordPlay(QWidget):
-    def __init__(self, parent):
+    def __init__(self, parent, table, rt_plot):
 
         super(RecordPlay, self).__init__()
         self.parent    = parent 
+        self.table     = table
+        self.rt_plot   = rt_plot
         self.widget    = QWidget()
         self.but_rec   = QPushButton("Record", default=True)
         self.but_play  = QPushButton("Play/Pause", default=True)
@@ -527,6 +530,12 @@ class RecordPlay(QWidget):
     def ListClicked (self):
         row = self.list.currentRow()
         print ("List clicked ", row)
+        # Clear the data table and the RT graph
+        self.table.dataview.ClearList()
+        self.table.tableWidget.clearContents()
+        self.rt_plot.ClearPlot()
+        self.rt_plot.plotview.ClearList()
+
         self.recplay.cur_track = self.recplay.track_list[row]
         self.recplay.SetState (sd.PlayState.PAUSE)
         self.recplay.Reset()
@@ -542,8 +551,7 @@ class RecordPlay(QWidget):
     def UpdateSlider (self):
         self.time.setText('{:.2f}'.format(self.recplay.cur_time))
         self.slider.setValue (int(1000*self.recplay.cur_time/self.recplay.cur_track.t_len))
-        
-        
+    
         
 class DrawJacket (QWidget):
     def __init__(self, parent):
@@ -680,9 +688,10 @@ class DataTable (QWidget):
         self.layout.addWidget(self.list, 1)
         self.list.itemClicked.connect(self.ItemClicked)
 #        self.list.addItem("Item 1")
+        self.row_num    = 7 
         self.tableWidget = QTableWidget()
         self.layout.addWidget (self.tableWidget, 4)
-        self.tableWidget.setRowCount(5)
+        self.tableWidget.setRowCount(self.row_num)
         self.tableWidget.setColumnCount(10)
         self.tableWidget.setHorizontalHeaderLabels (['Msg', 'Time(s)'])
 #         Adding this dynamic column resizing used to much computing power!
@@ -708,6 +717,8 @@ class DataTable (QWidget):
                     self.list.addItem(item)
             
             # Is the element a selected item, if so update table entry
+            # FIrst if handles sensor_n items 
+            # Second handles SA_EUL_AUG etc. 
             for item in self.dataview.filterlist:
                 update_ele = False
                 if "Sensor" in item:
@@ -720,7 +731,10 @@ class DataTable (QWidget):
                     if item == ele.name:
                         update_ele = True
                     
+
                 if (update_ele):
+                    #for ele in self.tablelist:
+                    #    ele.Print()
                     indx = 0
                     found = False
                     for item in self.tablelist:
@@ -732,12 +746,14 @@ class DataTable (QWidget):
                     if not found :
                         self.tablelist.append (ele)
 
+
+                    # check that we have enough rows in the table to display all the information
+                    # if note print a warning
+                    # print ( len(self.tablelist), self.row_num )
+                    if len(self.tablelist) > self.row_num:
+                        print ("Warning data table does not have suffient rows to display all items ")
                     self.tableWidget.setItem (indx, 0, QTableWidgetItem (ele.name))
-                    # Kludge to handle rare case when different tracks have different sensors
-                    try:
-                        self.tableWidget.item(indx,0).setBackground(QtGui.QColor(200,240,200))
-                    except:
-                        self.dataview.ClearList()
+                    self.tableWidget.item(indx,0).setBackground(QtGui.QColor(200,240,200))
                     
                     
                     self.tableWidget.setItem (indx, 1, QTableWidgetItem ("{0:.2f}".format(ele.time)))
