@@ -15,3 +15,11 @@ The pose is defined in a Right-Hand coordinate systems, with the axes orientated
 ```
 $ git clone https://github.com/StreamingApparel/Pose3DVisualisation.git
 ```
+   * To download the libraries needed for the software us pip and the requirements.txt file provided
+```
+pip install -r /path/to/requirements.txt
+```
+   * If that installs correctly you can test the program by typing
+```
+python QT_SA_Analyzer.py
+```
