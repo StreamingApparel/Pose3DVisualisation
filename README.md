@@ -12,6 +12,6 @@ The pose is defined in a Right-Hand coordinate systems, with the axes orientated
 
    * Set up a python virtual environment with python=3.9 (may work with higher versions but I have not tried it)
    * Clone the repository to you local machine
-'''
+```
 $ git clone https://github.com/StreamingApparel/Pose3DVisualisation.git
-'''
+```
