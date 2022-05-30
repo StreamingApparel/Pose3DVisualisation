@@ -141,6 +141,7 @@ class Body ():
     #
     # Method to outout a body in a BVH format
     # Probably does not work now as rotation order don't match
+    
     def OutputBVH (self, fn):
         try:
             f = open ( fn, 'w' )
