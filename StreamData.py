@@ -192,7 +192,11 @@ def ReadTrackList ( fp ):
     tracklist = [] 
     new_track = None
     for line in fp:
-        items = line[:-1].split(",")    # -1 used to eliminate the \n character
+        # -1 used to eliminate the \n character
+        # split string into elements, striping out \n and leading and trailing 
+        # white spaces
+        items =  [x.strip() for x in line[:-1].split(',')]
+        
         if items[0] == "SA_Track":
             if new_track:               # Save previous track
                 new_track.SetTimeLen()

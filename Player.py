@@ -84,6 +84,7 @@ class Body ():
         head        = Rod ("Head",np.array ([0.0, 18.2, 0.0])*height, np.array ([0.0, 0.0, 0.0]), np.array ([0.0, 0.0, 0.0]), np.array ([0.0, 0.0, 0.0]), False  )
 
         # Contruct Standard body
+        # Upper body
         self.root.append ( spine )
         spine.AddNext (r_shoulder)
         r_shoulder.AddNext (r_upperarm)
@@ -93,10 +94,12 @@ class Body ():
         l_shoulder.AddNext (l_upperarm)
         l_upperarm.AddNext (l_lowerarm)
         l_lowerarm.AddNext (l_hand)
+        #Right hip and leg
         self.root.append (r_hip)
         r_hip.AddNext (r_knee)
         r_knee.AddNext (r_ankle)
         r_ankle.AddNext(r_foot)
+        #Left hip and leg
         self.root.append (l_hip)
         l_hip.AddNext (l_knee)
         l_knee.AddNext (l_ankle)

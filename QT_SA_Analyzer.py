@@ -299,8 +299,8 @@ class MainWindow (QMainWindow):
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLineWidth(1)    
         self.viewer3D.DrawGround()
-        glLineWidth(3)    
-        self.viewer3D.DrawPlayer (0)
+        glLineWidth(3)
+        #self.viewer3D.DrawPlayer (0)
         self.viewer3D.DrawPlayerSolid (0)
         
         pg.display.flip()

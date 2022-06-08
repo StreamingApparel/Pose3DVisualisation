@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Simple routine to create a set of motion data for testing visualisation
+Simple routine to create a set of motion data for testing SA_visualizer
 software
 
 Created on Sun May 15 10:33:31 2022
